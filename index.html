@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V9</title>
+  <title>Converter V10</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -65,10 +65,10 @@
   }
 
   function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
-    let hex = hexString.replace(/^0x/i, '');
-    if (hex.length % 2 !== 0) hex = '0' + hex;
+    
+    if (hexString.length % 2 !== 0) hex = '0' + hexString;
 
-    let bytes = hexToBytes('049279B2781C90');
+    let bytes = hexToBytes(hex);
     console.log(bytes);
     if (shortCardModel === 2) {
       const rev = reverseBytes(bytes);
