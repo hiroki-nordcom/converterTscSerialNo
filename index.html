@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V14</title>
+  <title>Converter V15</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -88,7 +88,7 @@
       if (mode === 0) {
         result = convertTscSNHexToTscSNDec(input, shortCard);
       } else {
-        const dec = Number(input);
+        const dec = BigInt(input);
         if (isNaN(dec)) {
           result = 'Invalid decimal input';
         } else {
