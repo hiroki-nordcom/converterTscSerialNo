@@ -2,28 +2,28 @@
   <HEAD>CONVERTER TSC SERIALNO</HEAD>
   <BODY>
   <p>
-           <label>Password</label>
-           <input type = "password"
-              id = "pword"
-              value = "password"
-              name = "pword"/>
+           <label>type of conversion. (0 <- hex to dec, 1 <- dec to hex)</label>
+           <input type = "text"
+              id = "type_conv"
+              value = ""
+              name = "type_conv"/>
         </p>
         <p>
-           <label>First Name</label>
+           <label>value of tscSerialNo in hexadecimal which you want to convert.</label>
            <input type = "text"
-              id = "fname"
-              value = "First Name" 
-              name = "fname"/>
+              id = "tscSerialNo"
+              value = "" 
+              name = "tscSerialNo"/>
         </p>
         <p>
-           <label>Last Name</label>
+           <label>value of shortCardModelId. (if you want to convert the support Mifare UL digit 2, otherwise empty)</label>
            <input type = "text"
-              id = "lname"
-              value = "Last Name"
-              name = "lname"/>
+              id = "cardModel"
+              value = ""
+              name = "cardModel"/>
         </p>
         <div>
-           <button type="submit" id="buttonJoin" onclick="addDate()">Join</button>
+           <button type="submit" id="buttonConvert" onclick="addDate()">Convert</button>
         </div>
         <div>
            <button onclick="buttonLogin" type="submit" name="buttonLogin">Login</button>  
