@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V8</title>
+  <title>Converter V9</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -68,7 +68,7 @@
     let hex = hexString.replace(/^0x/i, '');
     if (hex.length % 2 !== 0) hex = '0' + hex;
 
-    let bytes = hexToBytes(hex);
+    let bytes = hexToBytes('049279B2781C90');
     console.log(bytes);
     if (shortCardModel === 2) {
       const rev = reverseBytes(bytes);
@@ -88,7 +88,7 @@
       const shortCard = document.getElementById('short2').checked ? 2 : 0;
       let result;
       if (mode === 0) {
-        result = convertTscSNHexToTscSNDec('3DE96576', 0);
+        result = convertTscSNHexToTscSNDec('49279B2781C90', 0);
       } else {
         const dec = Number(input);
         if (isNaN(dec)) {
