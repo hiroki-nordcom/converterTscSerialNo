@@ -33,7 +33,16 @@ function bytesToHex(bytes) {
 }
 
 function reverseBytes(bytes) {
-  return bytes.slice().reverse();
+  let start = 0;
+  let end = bytes.length - 1;
+  while (start < end) {
+    const temp = bytes[start];
+    bytes[start] = bytes[end];
+    bytes[end] = temp;
+    start++;
+    end--;
+  }
+  return bytes;
 }
 
 function convertDecimalToHex(dec) {
