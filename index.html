@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V13</title>
+  <title>Converter V14</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -65,7 +65,7 @@
   }
 
   function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
-    
+    let hex = hexString;
     if (hexString.length % 2 !== 0) hex = '0' + hexString;
 
     let bytes = hexToBytes(hex);
