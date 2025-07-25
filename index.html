@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V3</title>
+  <title>Converter V4</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -53,15 +53,24 @@ function convertHexadecimalToDecimal(hex) {
   return parseInt(hex, 16);
 }
 
-function convertTscSNDecToTscSNHex(decNum, shortCardModel = 0) {
-  if (shortCardModel === 2) {
-    const hex = convertDecimalToHex(decNum);
-    const bytes = hexToBytes(hex);
-    const rev = reverseBytes(bytes);
-    return bytesToHex(rev);
+  function convertTscSNDecToTscSNHex(decNum, shortCardModel = 0) {
+    // Ensure decNum is a BigInt
+    const decBigInt = typeof decNum === 'bigint' ? decNum : BigInt(decNum);
+
+    // Convert BigInt to hex string
+    let hex = decBigInt.toString(16);
+    if (hex.length % 2 !== 0) {
+      hex = '0' + hex; // Pad to even length
+    }
+
+    if (shortCardModel === 2) {
+      const bytes = hexToBytes(hex);
+      const rev = reverseBytes(bytes);
+      hex = bytesToHex(rev);
+    }
+
+    return hex.toLowerCase(); // or uppercase
   }
-  return convertDecimalToHex(decNum);
-}
 
   function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
     let hex = hexString;
