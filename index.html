@@ -17,41 +17,33 @@
   <button id="go">Convert</button>
   <div id="output"></div>
 
-  <script>
-// Hex ↔ decimal conversions
-function hexToBytes(hex) {
-  if (hex.length % 2 !== 0) hex = '0' + hex;
-  const bytes = [];
-  for (let i = 0; i < hex.length; i += 2) {
-    bytes.push(parseInt(hex.substr(i, 2), 16));
+<script>
+  // Hex ↔ decimal conversions
+  function hexToBytes(hex) {
+    if (hex.length % 2 !== 0) hex = '0' + hex;
+    const bytes = [];
+    for (let i = 0; i < hex.length; i += 2) {
+      bytes.push(parseInt(hex.substr(i, 2), 16));
+    }
+    return bytes;
   }
-  return bytes;
-}
 
-function bytesToHex(bytes) {
-  return bytes.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-function reverseBytes(bytes) {
-  let start = 0;
-  let end = bytes.length - 1;
-  while (start < end) {
-    const temp = bytes[start];
-    bytes[start] = bytes[end];
-    bytes[end] = temp;
-    start++;
-    end--;
+  function bytesToHex(bytes) {
+    return bytes.map(b => b.toString(16).padStart(2, '0')).join('');
   }
-  return bytes;
-}
 
-function convertDecimalToHex(dec) {
-  return dec.toString(16);
-}
-
-function convertHexadecimalToDecimal(hex) {
-  return parseInt(hex, 16);
-}
+  function reverseBytes(bytes) {
+    let start = 0;
+    let end = bytes.length - 1;
+    while (start < end) {
+      const temp = bytes[start];
+      bytes[start] = bytes[end];
+      bytes[end] = temp;
+      start++;
+      end--;
+    }
+    return bytes;
+  }
 
   function convertTscSNDecToTscSNHex(decNum, shortCardModel = 0) {
     // Ensure decNum is a BigInt
@@ -102,6 +94,6 @@ function convertHexadecimalToDecimal(hex) {
       }
       document.getElementById('output').innerText = result;
     };
-  </script>
+</script>
 </body>
 </html>
