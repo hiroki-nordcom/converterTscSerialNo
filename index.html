@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V11</title>
+  <title>Converter V12</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -47,7 +47,7 @@
 
   function convertTscSNDecToTscSNHex(decNum, shortCardModel = 0) {
     // Ensure decNum is a BigInt
-    const decBigInt = typeof decNum === 'bigint' ? decNum : BigInt(decNum);
+    const decBigInt = BigInt(decNum);
 
     // Convert BigInt to hex string
     let hex = decBigInt.toString(16);
