@@ -23,7 +23,7 @@
               name = "cardModel"/>
         </p>
         <div>
-           <button type="submit" id="buttonConvert" onclick="addDate()">Convert</button>
+           <button type="submit" id="buttonConvert" onclick="addData()">Convert</button>
         </div>
         <div>
            <button onclick="buttonLogin" type="submit" name="buttonLogin">Login</button>  
@@ -37,3 +37,20 @@
   </form>
 </BODY>
 </HTML>
+<script>
+        function addData(){
+            try{
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        var data = xhr.responseText;
+                        alert(data);
+                    }
+                }
+                xhr.open('GET', 'webConnAPI', true);
+                xhr.send(null);
+            }catch(Excetpion){
+                alert('didnt work');
+            }
+        }
+</script>
