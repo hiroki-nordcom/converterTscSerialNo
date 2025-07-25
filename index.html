@@ -69,9 +69,11 @@
     if (hex.length % 2 !== 0) hex = '0' + hex;
 
     let bytes = hexToBytes(hex);
+    console.log(bytes);
     if (shortCardModel === 2) {
       const rev = reverseBytes(bytes);
     }
+    console.log(bytes);
     // Convert byte array to BigInt manually preserving big-endian significance in bytes
     let result = 0n;
     for (const b of bytes) {
