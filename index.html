@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V12</title>
+  <title>Converter V13</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -69,11 +69,9 @@
     if (hexString.length % 2 !== 0) hex = '0' + hexString;
 
     let bytes = hexToBytes(hex);
-    console.log(bytes);
     if (shortCardModel === 2) {
-      const rev = reverseBytes(bytes);
+      reverseBytes(bytes);
     }
-    console.log(bytes);
     // Convert byte array to BigInt manually preserving big-endian significance in bytes
     let result = 0n;
     for (const b of bytes) {
