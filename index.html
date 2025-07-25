@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Converter V5</title>
+  <title>Converter V6</title>
 </head>
 <body>
   <input id="input" placeholder="Value" />
@@ -65,16 +65,19 @@
   }
 
   function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
-    let hex = hexString;
+    let hex = hexString.replace(/^0x/i, '');
     if (hex.length % 2 !== 0) hex = '0' + hex;
 
+    let bytes = hexToBytes(hex);
     if (shortCardModel === 2) {
-      const bytes = hexToBytes(hex);
       const rev = reverseBytes(bytes);
-      hex = bytesToHex(rev);
     }
-
-    return BigInt('0x' + hex);
+    // Convert byte array to BigInt manually preserving big-endian significance in bytes
+    let result = 0n;
+    for (const b of bytes) {
+      result = (result << 8n) | BigInt(b);
+    }
+    return result;
   }
     
     document.getElementById('go').onclick = () => {
