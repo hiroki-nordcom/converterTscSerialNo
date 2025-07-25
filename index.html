@@ -63,18 +63,19 @@ function convertTscSNDecToTscSNHex(decNum, shortCardModel = 0) {
   return convertDecimalToHex(decNum);
 }
 
-function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
-  let hex = hexString;
-  if (hex.length % 2 !== 0) hex = '0' + hex;
-  if (shortCardModel === 2) {
-    const bytes = hexToBytes(hex);
-    const rev = reverseBytes(bytes);
-    const rehex = bytesToHex(rev);
-    return convertHexadecimalToDecimal(rehex);
-  }
-  return convertHexadecimalToDecimal(hex);
-}
+  function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
+    let hex = hexString;
+    if (hex.length % 2 !== 0) hex = '0' + hex;
 
+    if (shortCardModel === 2) {
+      const bytes = hexToBytes(hex);
+      const rev = reverseBytes(bytes);
+      hex = bytesToHex(rev);
+    }
+
+    return BigInt('0x' + hex);
+  }
+    
     document.getElementById('go').onclick = () => {
       const mode = parseInt(document.getElementById('mode').value);
       const input = document.getElementById('input').value.trim();
