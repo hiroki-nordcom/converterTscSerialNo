@@ -1,56 +1,88 @@
-<HTML>
-  <HEAD>CONVERTER TSC SERIALNO</HEAD>
-  <BODY>
-  <p>
-           <label>type of conversion. (0 <- hex to dec, 1 <- dec to hex)</label>
-           <input type = "text"
-              id = "type_conv"
-              value = ""
-              name = "type_conv"/>
-        </p>
-        <p>
-           <label>value of tscSerialNo in hexadecimal which you want to convert.</label>
-           <input type = "text"
-              id = "tscSerialNo"
-              value = "" 
-              name = "tscSerialNo"/>
-        </p>
-        <p>
-           <label>value of shortCardModelId. (if you want to convert the support Mifare UL digit 2, otherwise empty)</label>
-           <input type = "text"
-              id = "cardModel"
-              value = ""
-              name = "cardModel"/>
-        </p>
-        <div>
-           <button type="submit" id="buttonConvert" onclick="addData()">Convert</button>
-        </div>
-        <div>
-           <button onclick="buttonLogin" type="submit" name="buttonLogin">Login</button>  
-        </div>
-        <div>
-           <button onclick="buttonReset" type="reset" nwame="buttonReset">Reset</button>  
-        </div>
-     </fieldset>
-     <div id="data"></div>
-     <div id="showDiv"  style="display:none;">Thanks</div>
-  </form>
-</BODY>
-</HTML>
-<script>
-        function addData(){
-            try{
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4) {
-                        var data = xhr.responseText;
-                        alert(data);
-                    }
-                }
-                xhr.open('GET', 'webConnAPI', true);
-                xhr.send(null);
-            }catch(Excetpion){
-                alert('didnt work');
-            }
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Converter Demo</title>
+</head>
+<body>
+  <input id="input" placeholder="Value" />
+  <select id="mode">
+    <option value="0">Hex → Dec</option>
+    <option value="1">Dec → Hex</option>
+  </select>
+  <label>
+    <input type="checkbox" id="short2" />
+    Short card model (Mifare UL digit‑2)
+  </label>
+  <button id="go">Convert</button>
+  <div id="output"></div>
+
+  <script>
+// Hex ↔ decimal conversions
+function hexToBytes(hex) {
+  if (hex.length % 2 !== 0) hex = '0' + hex;
+  const bytes = [];
+  for (let i = 0; i < hex.length; i += 2) {
+    bytes.push(parseInt(hex.substr(i, 2), 16));
+  }
+  return bytes;
+}
+
+function bytesToHex(bytes) {
+  return bytes.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function reverseBytes(bytes) {
+  return bytes.slice().reverse();
+}
+
+function convertDecimalToHex(dec) {
+  return dec.toString(16);
+}
+
+function convertHexadecimalToDecimal(hex) {
+  return parseInt(hex, 16);
+}
+
+function convertTscSNDecToTscSNHex(decNum, shortCardModel = 0) {
+  if (shortCardModel === 2) {
+    const hex = convertDecimalToHex(decNum);
+    const bytes = hexToBytes(hex);
+    const rev = reverseBytes(bytes);
+    return bytesToHex(rev);
+  }
+  return convertDecimalToHex(decNum);
+}
+
+function convertTscSNHexToTscSNDec(hexString, shortCardModel = 0) {
+  let hex = hexString;
+  if (hex.length % 2 !== 0) hex = '0' + hex;
+  if (shortCardModel === 2) {
+    const bytes = hexToBytes(hex);
+    const rev = reverseBytes(bytes);
+    const rehex = bytesToHex(rev);
+    return convertHexadecimalToDecimal(rehex);
+  }
+  return convertHexadecimalToDecimal(hex);
+}
+
+    document.getElementById('go').onclick = () => {
+      const mode = parseInt(document.getElementById('mode').value);
+      const input = document.getElementById('input').value.trim();
+      const shortCard = document.getElementById('short2').checked ? 2 : 0;
+      let result;
+      if (mode === 0) {
+        result = convertTscSNHexToTscSNDec(input, shortCard);
+      } else {
+        const dec = Number(input);
+        if (isNaN(dec)) {
+          result = 'Invalid decimal input';
+        } else {
+          result = convertTscSNDecToTscSNHex(dec, shortCard);
         }
-</script>
+      }
+      document.getElementById('output').innerText = result;
+    };
+  </script>
+</body>
+</html>
