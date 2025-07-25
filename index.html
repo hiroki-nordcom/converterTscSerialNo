@@ -83,7 +83,7 @@
       const shortCard = document.getElementById('short2').checked ? 2 : 0;
       let result;
       if (mode === 0) {
-        result = convertTscSNHexToTscSNDec(input, shortCard);
+        result = convertTscSNHexToTscSNDec('49279B2781C90', 2);
       } else {
         const dec = Number(input);
         if (isNaN(dec)) {
